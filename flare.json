@@ -1,0 +1,39 @@
+{
+ "name": "Societal Carbon Dioxide Emissions",
+
+   "children": [
+    {
+     "name": "Petroleum",
+     "children": [
+      {"name": "Transportation", "size": 1778
+   
+   
+     },     
+      {"name": "Residential", "size": 73},
+      {"name": "Commercial", "size": 49},
+      {"name": "Industrial", "size": 348}  
+         
+     ]
+    },
+    {
+     "name": "Coal",
+     "children": [
+   
+      {"name": "Residential", "size": 595},
+      {"name": "Commercial", "size": 581},
+      {"name": "Industrial", "size": 546}   
+     ]
+    },
+    {
+     "name": "Natural Gas",
+     "children": [
+      {"name": "Transportation", "size": 50},
+      {"name": "Residential", "size": 445},
+      {"name": "Commercial", "size": 352},
+      {"name": "Industrial", "size": 596}   
+     ]
+    }
+     
+   
+ ]
+}

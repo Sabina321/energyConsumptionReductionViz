@@ -1,0 +1,35 @@
+ {
+    "Carpooling":0.7266,
+  
+      "Tune-ups":0.6747,
+   
+      "Alter-driving": 0.5536,
+   
+      "Combine trips":0.4671,
+   
+      "Cut highway speed":0.4152,
+    
+      "Maintain correct tire pressure": 0.2076,
+   
+      "Lighting": 0.692,
+ 
+      "Set thermostat":0.5882,
+  
+      "Clothes washing":0.2076,
+  
+      "Buy low rolling tires":0.2595,
+   
+      "Buy a more fuel efficient vehicle": 2.3355,
+   
+      "Weather-strip":0.4325,
+   
+      "Upgrade Insulation":1.211,
+
+      "Upgrade heater":0.5017,
+ 
+      "Upgrade AC":0.3806,
+ 
+      "Upgrade refrigerator":0.3287,
+    
+      "Upgrade water heater":0.2595
+    }

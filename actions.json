@@ -1,0 +1,70 @@
+{
+ "name": "Savings",
+    
+   "children": [
+     {
+     "name": "Maintain correct tire pressure", "size":7.38276
+    },
+       
+     {
+     "name": "Clothes washing","size":7.38276
+    },
+       
+       
+     {
+     "name": "Buy low rolling tires","size":9.22845
+    },
+       
+      {
+     "name": "Upgrade water heater","size":9.22845
+    },
+        {
+     "name": "Upgrade refrigerator","size":11.68937
+    },
+       
+     {
+     "name": "Upgrade AC","size":13.53506
+    },
+     {
+     "name": "Cut highway speed","size":14.76552
+    },
+      {
+     "name": "Weather-strip","size":15.38075
+    }, 
+       
+     {
+     "name": "Combine trips","size":16.61121
+    },   
+     {
+     "name": "Upgrade heater","size":17.84167
+    },   
+       
+    {
+     "name": "Alter-driving", "size":19.68736
+    },   
+      
+        {
+     "name": "Set thermostat","size":20.91782
+    },
+      
+       {
+     "name": "Tune-ups","size":23.99397
+    },
+       
+     {
+     "name": "Lighting", "size":24.6092
+    },
+         
+    {
+     "name": "Carpooling","size":25.83966
+    },
+    
+     {
+     "name": "Upgrade Insulation","size":43.0661
+    },
+        
+        {
+     "name": "Buy a more fuel efficient vehicle", "size":83.05605
+    }
+]
+}

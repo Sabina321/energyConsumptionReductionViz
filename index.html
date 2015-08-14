@@ -1,0 +1,1272 @@
+<html>
+<head>
+    <script type= "text/javascript" src="http://d3js.org/d3.v3.min.js"></script> 
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+   <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+    <style>
+    
+    body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;height:100%; 
+  
+}    
+   svg {
+  font-size: 50px;
+}     
+    #container1 {
+    float:left;
+   
+}   
+        
+ #container2 {
+    float:bottom;
+    width:100%;
+    
+  
+    
+}         
+   #text {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+       color: blue;
+}     
+    #col1 {
+    float:left;
+    width:33%;
+    height:100%;
+    display:block;    
+       
+}
+        
+ #col1a {
+    float:left;
+    width:100%;
+    height:10%;
+    display:block;    
+       
+}
+        
+ #col1b {
+    float:left;
+    width:100%;
+    height:90%;
+    display:block;    
+    
+
+}   
+        
+        #col2a {
+    float:left;
+    width:100%;
+    height:50%;
+    display:block;    
+       
+}
+        
+ #col2b {
+    float:left;
+    width:100%;
+    height:50%;
+    display:block;    
+       
+}
+
+
+
+#col2 {
+    float:left;
+    width:33%;
+    height:100%;
+   
+}
+#col3 {
+    float:left;
+    width:33%;
+    height:100%;
+   
+}
+        
+        td, th {
+    padding: 1px 4px;
+}
+  
+path {
+  stroke: #fff;
+    fill-rule: evenodd;
+  
+} 
+        
+#legend {
+    padding: 1.5em 0 0 1.5em;
+    position: absolute; 
+    bottom: 0;
+}
+#legendone{
+    
+    
+}
+        #legendtwo{
+    
+    
+}
+li.key {
+    border-top-width: 5px;
+    border-top-style: solid;
+    font-size: .1em;
+    width: 10%;
+    padding-left: 0;
+    padding-right: 0;
+}        
+ .d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+} 
+        
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 80px;                  
+  height: 120px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}        
+    </style>
+</head>
+<body>
+   
+ <div id="container1">
+<div id="col1">
+     
+    
+     Carbon Dioxide Emissions in the US<br>
+     
+     <div id="col1b"></div>
+     </div> 
+
+     <div id="col2">
+<div id="col2a">Emissions Due to 17 Everyday Actions<br><br>
+
+
+     
+    <br>
+   First select the number of people who will take the reduction saving action <br>
+    <div id="option">
+      
+    <input name="person" 
+           type="button" 
+           style="margin-top: 20"
+           
+           value="1 Person" 
+           onclick="get_new_quantity(1)" />
+</div>
+
+    <div id="option">
+        
+    <input name="city" 
+           type="button" 
+           style="margin-top: 1"
+           
+           value="10 Million People" 
+           onclick="get_new_quantity(10000000)" />
+</div>    
+    
+  <div id="option">
+        
+    <input name="init" 
+           type="button" 
+           style="margin-top: 1"
+          
+           value="Start Over" 
+           onclick="init()" />
+<br>    
+   Then select the action from the table to the right.<br>
+   
+</div>  
+
+         </div>
+  <div id="col2b">
+    </div>  
+
+     </div> 
+<div id="col3">Actions to Reduce Emissions
+     
+     
+     </div>     
+</div>       
+
+ <div id="container2">
+
+<p>The emissions figures were obtained from the Energy Information Administration, Monthly Energy Review April 2015[1]. In this report emissions by electricity are a separate sector, that is figures for the multiple sources of electricity: coal, petroleum, and and natural gas, are provided. Yet each sector: Residential, Industrial, Commercial and Transportation uses some electricity. Thus when finding the total emissions of any sector their electricity emissions were added in. So first I found the breakdown of electricity emissions by percent: .77 coal, .01 petroleum, .22 natural gas. Then for any sector I found the amount of electricity consumed(provided by the retail electricity figure). Then that quanity was divided into the source categories using the proportions mentioned previously. For example: 
+
+     </p>
+     <p>
+     The residential sector consumed NA amount of coal in 2014. However they consumed 773 MM CO2 via retail electricity. Thus the total amount of emissions by the residential sector, due to coal, was 773 * .77 or 595 MM CO2.
+     </p><p>
+The 17 Actions are taken from "The Short List: The Most Effective Actions U.S. Households Can Take to Curb Climate Change"[2]. To calculate the total potential emissions reductions from these 17 actions, I first found the potential emissions reductions for each household. This was found by finding the total US emissions in 2005, the year for which the percentages were generated, then multiplying that number by 11%, the figure provided in the paper of the total potential emissions reduction due to household actions. Thus the total potential reductions in 2005 was approximately equal to 615 MM CO2. 
+     </p><p>
+To find the exact household contribution of each of the 17 actions, each of which are household actions, I had to find the total potential emissions reduction of each household. The number of households in the US in July 2014 was estimated to be 133 million. Thus the average potential emissions reduction per household is approximately: 4.62 MM CO2. It would be desireable to have the precise reductions in CO2 emissions of each action. However, in the interim, the approximation is believed to be sufficient to show: a) the relative impact of each action, b)the approximate impact that individuals and households can have in lowering carbon dioxide emissions.     
+     </p><p> 
+References:
+     <ol>
+         <li> [1]http://www.eia.gov/totalenergy/data/monthly/archive/00351504.pdf</li>
+         <li>[2]http://www.environmentmagazine.org/archives/back%20issues/september-october%202008/gardner-stern-full.html</li>
+         <li>[3]http://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk</li>
+         <li>[4]http://www.census.gov/compendia/statab/2012/tables/12s0059.pdf</li>
+     </ol>
+         </p>
+    <p>
+     
+Authors:
+     Sabina Tomkins 
+     University of California Santa Cruz
+     Suresh Lodha 
+     University of California Santa Cruz
+     </p>
+</div>
+    
+    
+<script>
+    
+queue()
+.defer(d3.json,'flare.json')
+.defer(d3.json,'actions.json')
+.defer(d3.json,'actionstable.json')
+.defer(d3.json,'sizes.json')
+.defer(d3.json,'individuals.json')
+.await(analyze);    
+
+var indis; 
+ var source_colors = colorbrewer.Reds[9];
+var use_colors = colorbrewer.Oranges[9];
+console.log(source_colors);
+
+    
+
+
+var act = {
+ "name": "Savings",
+    
+   "children": [
+
+     {
+     "name": "Maintain correct tire pressure", "size":7.38276
+    },
+       
+     {
+     "name": "Clothes washing","size":7.38276
+    },
+       
+       
+     {
+     "name": "Buy low rolling tires","size":9.22845
+    },
+       
+      {
+     "name": "Upgrade water heater","size":9.22845
+    },
+        {
+     "name": "Upgrade refrigerator","size":11.68937
+    },
+       
+     {
+     "name": "Upgrade AC","size":13.53506
+    },
+     {
+     "name": "Cut highway speed","size":14.76552
+    },
+      {
+     "name": "Weather-strip","size":15.38075
+    }, 
+       
+     {
+     "name": "Combine trips","size":16.61121
+    },   
+     {
+     "name": "Upgrade heater","size":17.84167
+    },   
+       
+    {
+     "name": "Alter-driving", "size":19.68736
+    },   
+        {
+     "name": "Set thermostat","size":20.91782
+    },
+       {
+     "name": "Tune-ups","size":23.99397
+    }, 
+     {
+     "name": "Lighting", "size":24.6092
+    }, 
+    {
+     "name": "Carpooling","size":25.83966
+    },
+     {
+     "name": "Upgrade Insulation","size":43.0661
+    },  
+        {
+     "name": "Buy a more fuel efficient vehicle", "size":83.05605
+    }  
+    ]
+};  
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 960 - margin.top - margin.bottom;
+    
+var jsonCircles = [
+ { "x_axis": 300, "y_axis": 200, "radius": 20, "color" : "green" },
+]; 
+    
+   var radius = Math.min(width, height) / 16; 
+    
+    
+var x = d3.scale.linear()
+    .range([0, 2 * Math.PI]);
+
+var y = d3.scale.linear()
+    .range([0, radius]);
+    
+
+
+var color = d3.scale.category20c();
+    
+var quantity =1;    
+    
+    
+var currentSelection = null;     
+//Circle functions
+  function length() {
+        var fmt = d3.format('02d');
+        return function(l) { return Math.floor(l / 60) + ':' + fmt(l % 60) + ''; };
+    }
+ 
+/*Trying better text rotation*/
+    
+function getAngle(d) {
+    // Offset the angle by 90 deg since the '0' degree axis for arc is Y axis, while
+    // for text it is the X axis.
+    var thetaDeg = (180 / Math.PI * (arc.startAngle()(d) + arc.endAngle()(d)) / 2 - 90);
+    // If we are rotating the text by more than 90 deg, then "flip" it.
+    // This is why "text-anchor", "middle" is important, otherwise, this "flip" would
+    // a little harder.
+    
+    return (thetaDeg > 90) ? thetaDeg - 90 : thetaDeg;
+}    
+
+function computeTextRotation(d) {
+  return ((x(d.x + d.dx ) - Math.PI / 2) / Math.PI *240)    ;
+    
+}    
+    
+    //http://www.brendansudol.com/posts/responsive-d3/
+function responsivefy(svg) {
+ 
+    var container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")),
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
+      
+    //console.log(container[0][0]);
+    
+
+    svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("perserveAspectRatio", "xMinYMid")
+        .call(resize);
+
+    
+    d3.select(window).on("resize." + container.attr("id"), resize);
+    
+    // get width of container and resize svg to fit it
+    function resize() {
+        var targetWidth = parseInt(container.style("width"));
+        svg.attr("width", targetWidth);
+        svg.attr("height", Math.round(targetWidth / aspect));
+    }
+    
+}
+  function length() {
+        var fmt = d3.format('02d');
+        return function(l) { return Math.floor(l / 60) + ':' + fmt(l % 60) + ''; };
+    }
+    
+var partition = d3.layout.partition()
+    .sort(null)
+    .value(function(d) { return  d.size });    
+    
+ /*var arc = d3.svg.arc()
+    .startAngle(function(d) {console.log(d.x); return  d.x; })
+    .endAngle(function(d) { console.log(d.dx); return d.x + d.dx; })
+    .innerRadius(function(d) { console.log(d.y); return Math.sqrt(d.y); })
+    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });*/
+
+
+    
+ var arc2 = d3.svg.arc()
+    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, 3*x(d.x + d.dx))); })
+
+    .innerRadius(function(d) { return Math.max(0, 0); })
+ //3*y(d.y)
+
+    .outerRadius(function(d) {console.log(Math.max(0, 3*y(d.y + d.dy))); return Math.max(0, 3*y(d.y + d.dy)); });      
+    
+   var arc1 = d3.svg.arc()
+    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, 6*x(d.x + d.dx))); })
+
+   //6*y(d.y)
+    .innerRadius(function(d) { return Math.max(0,6*y(d.y) ); })
+
+    .outerRadius(function(d) { return Math.max(0, 6*y(d.y + d.dy)); });     
+
+function get_arc2(factor){
+   return d3.svg.arc()
+    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+
+    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, 3*x(d.x + d.dx))); })
+   //factor*y(d.y)
+    .innerRadius(function(d) { return Math.max(0, 0); })
+    .outerRadius(function(d) {console.log(factor*Math.max(0, 2*y(d.y + d.dy))); return Math.max(0, factor*2*y(d.y + d.dy)); });  
+//.outerRadius(function(d) {console.log(factor*Math.max(0, 2*y(d.y + d.dy))); return factor*Math.max(0, 2*y(d.y + d.dy)); });
+
+    
+    /*
+    return d3.svg.arc()
+    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, 3*x(d.x + d.dx))); })
+    .innerRadius(function(d) { return Math.max(0, factor*3*y(d.y)); })
+    .outerRadius(function(d) {console.log(factor*Math.max(0, 3*y(d.y + d.dy))); return factor*Math.max(0, 3*y(d.y + d.dy)); });  
+    
+    
+    */
+}
+  
+
+/* 
+
+Not really using this anymore
+=======
+    
+>>>>>>> f9de664a076f53a316fad836830afca7fe9cc389
+var green = colorbrewer.Greens[9];   
+ var blue = colorbrewer.Blues[9];
+ var purp = colorbrewer.Purples[9];  
+    
+    
+ var totalColors = [];
+    
+ for( i=3; i<8;i++){
+   totalColors.push(green[i]);  
+    totalColors.push(blue[i]); 
+    totalColors.push(purp[i]); 
+ };
+totalColors.push(purp[8]);
+totalColors.push(green[8]);
+console.log(totalColors);   
+<<<<<<< HEAD
+ */   
+ var actionsColors = {"Maintain correct tire pressure":"#dadaeb",
+    "Clothes washing":"#c6dbef",
+    "Buy low rolling tires":"#c7e9c0",
+    "Upgrade water heater":"#bcbddc",
+    "Upgrade refrigerator":"#9ecae1",
+    "Upgrade AC":"#a1d99b", 
+    "Cut highway speed":"#9e9ac8",
+     "Weather-strip":"#6baed6",
+     "Combine trips":"#74c476",
+    "Upgrade heater":"#807dba",
+   "Alter-driving":"#4292c6", 
+     "Set thermostat":"#41ab5d",
+     "Tune-ups":"#6a51a3",
+    "Lighting":"#2171b5",
+      "Carpooling":"#238b45",
+    "Upgrade Insulation":"#54278f",
+    "Buy a more fuel efficient vehicle":"#08519c"
+ 
+        };       
+
+    
+    
+    
+function init(){
+
+ var act = {
+ "name": "Savings",
+    
+   "children": [
+     {
+     "name": "Maintain correct tire pressure", "size":7.38276
+    },
+       
+     {
+     "name": "Clothes washing","size":7.38276
+    },
+       
+       
+     {
+     "name": "Buy low rolling tires","size":9.22845
+    },
+       
+      {
+     "name": "Upgrade water heater","size":9.22845
+    },
+        {
+     "name": "Upgrade refrigerator","size":11.68937
+    },
+       
+     {
+     "name": "Upgrade AC","size":13.53506
+    },
+     {
+     "name": "Cut highway speed","size":14.76552
+    },
+      {
+     "name": "Weather-strip","size":15.38075
+    }, 
+       
+     {
+     "name": "Combine trips","size":16.61121
+    },   
+     {
+     "name": "Upgrade heater","size":17.84167
+    },   
+       
+    {
+     "name": "Alter-driving", "size":19.68736
+    },   
+      
+        {
+     "name": "Set thermostat","size":20.91782
+    },
+      
+       {
+     "name": "Tune-ups","size":23.99397
+    },
+       
+     {
+     "name": "Lighting", "size":24.6092
+    },
+         
+    {
+     "name": "Carpooling","size":25.83966
+    },
+    
+     {
+     "name": "Upgrade Insulation","size":43.0661
+    },
+        
+        {
+     "name": "Buy a more fuel efficient vehicle", "size":83.05605
+    }
+]
+};
+    updateCircle(act,1);
+}
+    
+/* function drawLegend() {
+
+  // Dimensions of legend item: width, height, spacing, radius of rounded rect.
+  var li = {
+    w: 75, h: 30, s: 3, r: 3
+  };
+
+  var legend = d3.select("#col2").select("#legend").append("svg:svg")
+      .attr("width", li.w)
+      .attr("height", colors.domain().length * (li.h + li.s));
+
+  var g = legend.selectAll("g")
+      .data(colors.domain())
+      .enter().append("svg:g")
+      .attr("transform", function(d, i) {
+              return "translate(0," + i * (li.h + li.s) + ")";
+           });
+
+  g.append("svg:rect")
+      .attr("rx", li.r)
+      .attr("ry", li.r)
+      .attr("width", li.w)
+      .attr("height", li.h)
+      .style("fill", function(d) { return colors(d); });
+
+  g.append("svg:text")
+      .attr("x", li.w / 2)
+      .attr("y", li.h / 2)
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "middle")
+      .text(function(d) { return d; });
+}*/
+  
+   
+    
+   
+    
+function analyze(error, flare, actions,tab,sizes,individuals){ 
+    if(error) { console.log(error); }
+ indis = individuals;
+    
+
+
+
+drawcircle1(flare);
+
+drawcircle2(actions,0); 
+drawcircle3(actions,500); 
+
+
+
+
+
+/*.attr("transform", function(d) { console.log(computeTextRotation(d)); return "rotate(" + computeTextRotation(d) + ")"; })
+                        .attr("x", function(d) { return y(d.y); })
+                        .attr("dx", "50") 
+                        .attr("y", function(d) { return d.y+d.dy*30; }) 
+                        .text(function(d) {console.log(d); return d.name; });*/
+ /*    
+  path.append("text")
+    .attr("transform", function(d) { console.log(computeTextRotation(d)); return "rotate(" + computeTextRotation(d) + ")"; })
+    .attr("x", function(d) { return y(d.y); })
+    .attr("dx", "5") // margin
+    .attr("dy", ".35em") // vertical-align
+    .text(function(d) { return d.name; }).call(responsivefy);
+    console.log(path);*/
+
+//.call(responsivefy);
+    
+
+    
+    /////Start Table 
+  var svgcontainer3 = d3.select("body").select("#col3").call(responsivefy);
+ 
+var div = svgcontainer3.append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);    
+    
+ var thiswidth = svgcontainer3[0][0].getBoundingClientRect().left+3*radius; 
+    var thisheight = svgcontainer3[0][0].getBoundingClientRect().top+radius;   
+      svgcontainer3.append("table")
+    //.attr("id",c)
+    .style("border-collapse", "collapse")
+    .style("border", "2px black solid")
+    
+    .selectAll("tr")
+    .data(tab)
+    .enter().append("tr")
+    
+    .selectAll("td")
+    .data(function(d){return d.split(",");})
+    .enter().append("td")
+    .style("border", "1px black solid")
+    .style("padding", "10px")
+    .style("background-color",function(d){console.log(d.split(",")[0]);return   actionsColors[d.split(",")[0]]})
+    .on("mouseover", function(d){
+          
+     //d3.select(this).style("background-color", "aliceblue");
+      
+     div.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            div.html(tttext[d] + "<br/>"  )  
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");
+          
+      
+      
+      }) 
+    .on("mouseout", function(){
+div.transition()        
+                .duration(100)      
+                .style("opacity", 0);
+          
+d3.select(this).style("background-color", function(d){console.log(d.split(",")[0]);return   actionsColors[d.split(",")[0]]})}) 
+    .on("click",function(d){get_new(act,d,currentSelection)})
+    .text(function(d){return d.split(",");})
+    .style("font-size", "12px");
+    
+      
+
+}
+    
+var tttext = {
+"Carpooling":"Carpool to work with at least one other person.",
+    "Tune-ups":"Get frequent tune-ups, including air-filter tune-ups.",
+     "Alter-driving":"Avoid sudden acceleration and stops.", 
+      "Combine trips":"Combining small errand trips into one large trip.",
+      "Cut highway speed":"Cut highway speed from 70 to 60 mph.",
+     "Maintain correct tire pressure":"Maintain correct tire pressure.",
+           
+     
+      "Lighting":"Replace 85 percent of all incandescent bulbs with leds or compact flourescent bulbs.",
+     "Set thermostat":"Keep your thermostat around 68-73 degrees.",
+     "Clothes washing":"Use warm or cold water as much as possible.",
+      "Buy low rolling tires":"Buy low rolling resistance tires.",
+       "Buy a more fuel efficient vehicle":"Hybrid electric vehicles are the best choices in most states.", 
+     
+       "Weather-strip":"Improve your home insulation by caulking and weather-stripping leaks.",
+    "Upgrade Insulation":"Install/upgrade attic insulation.",
+    "Upgrade heater":"Install a more efficient heater.",
+      "Upgrade AC":"Install a more efficient AC unit.",
+     "Upgrade refrigerator":"Look for energy star compliant fridges.",
+       "Upgrade water heater":"Install a more efficient water heater."
+
+
+
+};
+ function drawcircle1(flare){
+ var ratio = 1/3;  
+ var radius = (width)/2;  
+    
+     
+var colorsnew = {
+ "Residential":use_colors[3],
+ "Industrial":use_colors[4],
+ "Commercial":use_colors[5],
+ "Transportation":use_colors[6],
+    
+    
+  "Coal":source_colors[3],    
+  "Petroleum":source_colors[4],  
+  "Natural Gas":source_colors[5]
+    
+}
+
+var colorsone = d3.scale.ordinal()
+  .range([source_colors[4],source_colors[3],source_colors[5]]);   
+    
+var colorstwo = d3.scale.ordinal()
+  .range([use_colors[6],use_colors[4],use_colors[5],use_colors[3]]);      
+    
+    
+var svgcontainer1 = d3.select("body").select("#col1").select("#col1b").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom+radius).call(responsivefy)
+    .append("g");
+ 
+    
+ var thiswidth = svgcontainer1[0][0].getBoundingClientRect().left+3*radius; 
+    var thisheight = svgcontainer1[0][0].getBoundingClientRect().top+radius;
+    
+     svgcontainer1.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
+
+    /*var radius = (width/3)/2;
+    var center_x = svgcontainer1[0][0].getBoundingClientRect().left+3*radius; 
+    var center_y = svgcontainer1[0][0].getBoundingClientRect().top+3*radius;*/
+    
+
+
+var path = svgcontainer1.datum(flare).selectAll("path")
+  .data(partition.nodes)
+  .enter()
+  //.attr("class",c);
+    
+  .append("g")
+  .append("path")
+  .attr("display", function(d) { return d.depth ? null : "none"; })
+  .attr("d", arc1)
+  //.style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+  .style("fill",function(d){return colorsnew[d.name]})
+  .on("mouseover",function(d){print(d)})
+  .on("mouseout", function(d) {
+        /*svgcontainer1.append("text")
+ .attr("x",-radius)
+ .attr("y",-radius)
+ .text("Total Emissions: 5413 Million Metric Tons");*/  
+        svgcontainer1.select("text").remove();
+        
+    });
+var sizelookup = {"Petroleum":2248,"Coal":1722,"Natural Gas":1443}    
+function print(d){
+ //svgcontainer1.select("text").remove();  
+var sz;
+  if(d.name=="Petroleum" || d.name=="Coal" || d.name=="Natural Gas"){
+      sz = sizelookup[d.name];
+  }
+  else{
+   sz=d.size;   
+  }
+  svgcontainer1.select("g").append("text").attr("x",-radius)
+.attr("y",-radius+40).style("font-size", "30px")
+ 
+ 
+ .text(emissionsText(d,sz));   
+ }  
+ svgcontainer1.append("text")
+ .attr("x",-radius)
+ .attr("y",-radius)
+ .text("Total Emissions: 5413 Million Metric Tons");      
+     
+//Make this message better    
+ function emissionsText(d,sz){
+ var text="";   
+if(d.parent.name!="Societal Carbon Dioxide Emissions"){
+text = text+ d.name +" emissons from "+ d.parent.name +" sources "+ Math.round(((1.0*sz/5413)*10000)/100.00)+ "% of all emissions";
+}
+else{
+ text = d.name+ ": " + Math.round(((1.0*sz/5413)*10000)/100.00)+ "% of total emissions"     
+}
+    
+return text     
+ }
+    
+  var nodes = partition.nodes(flare)
+      .filter(function(d) {
+      return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
+      });
+
+/*var names = [];    
+function getNames(node) {
+  if(node.children) {
+    names.push(node.name);
+    node.children.forEach(function(c) { getNames(c); });
+  }
+}    
+getNames(flare);  
+    console.log(names);*/
+    
+    var uniqueNames = (function(a) {
+        var output = [];
+        a.forEach(function(d) {
+            if (output.indexOf(d.name) === -1) {
+                if( d.name!="Societal Carbon Dioxide Emissions")
+                output.push(d.name);
+            }
+        });
+        
+        return output;
+    })(nodes);     
+    
+uNames = ["Petroleum", "Coal", "Natural Gas","Transportation", "Residential", "Commercial", "Industrial"]    
+console.log((uNames));    
+
+var uNames1 = ["Petroleum", "Coal", "Natural Gas"];
+var uNames2 = ["Transportation", "Residential", "Commercial", "Industrial"]; 
+    
+ 
+    
+ colorsone.domain(uNames1);
+//console.log(colors.domain());   
+  var li = {
+    w:120, h: 100, s: 10, r: 3
+  };
+svgcontainer1.append("text").style("font-size","40px")
+.attr("x",-radius)
+.attr("y",radius)
+.text("Sources"); 
+    
+  var legend = svgcontainer1.append("svg:svg")
+      .attr("x",-radius)
+      .attr("y",radius+10)
+      .attr("class","legendone")
+      .attr("width",  colorsone.domain().length * (li.w + li.s))
+      .attr("height", colorsone.domain().length * (li.h + li.s));
+
+  var g = legend.selectAll("g")
+      .data(colorsone.domain())
+      .enter().append("svg:g")
+      .attr("transform", function(d, i) {
+              return "translate(" + i * (li.w + li.s) + ",0)";
+           });
+
+  g.append("svg:rect")
+      .attr("rx", li.s)
+      .attr("ry", li.s)
+      .attr("width", li.w)
+      .attr("height", li.h)
+      .style("fill", function(d) { return colorsone(d); });
+
+  g.append("svg:text")
+      .attr("x", li.w / 2)
+      .attr("y", li.h / 2)
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "middle")
+      .style("font-size","20px")
+      .text(function(d) {  return d; });   
+ 
+   
+    
+svgcontainer1.append("text").style("font-size","40px")
+.attr("x",-radius)
+.attr("y",radius+170)
+.text("Sectors");    
+    
+ colorstwo.domain(uNames2);
+ var li = {
+    w:200, h: 120, s: 10, r: 3
+  };
+
+  var legend = svgcontainer1.append("svg:svg")
+      .attr("x",-radius)
+      .attr("y",radius+5)
+      
+      .attr("width",  colorstwo.domain().length * (li.w + li.s))
+      .attr("height", colorstwo.domain().length * (li.h + li.s));
+
+  var g = legend.selectAll("g")
+      .data(colorstwo.domain())
+      .enter().append("svg:g")
+      .attr("transform", function(d, i) {
+              return "translate(" + i * (li.w + li.s) + ",170)";
+           });
+
+  g.append("svg:rect")
+      .attr("rx", li.s)
+      .attr("ry", li.s)
+      .attr("width", li.w)
+      .attr("height", li.h)
+      .style("fill", function(d) { return colorstwo(d); });
+
+  g.append("svg:text")
+      .attr("x", li.w / 2)
+      .attr("y", li.h / 2)
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "middle")
+      .style("font-size","22px")
+      .text(function(d) {  return d; });    
+    
+}
+
+/*,function(d) {
+        d3.select(this)
+        
+       .append("text")
+        .attr("text-anchor", "middle")
+        .text(d.name);
+       console.log(d);}*/
+    
+function get_new_quantity(q){
+
+   d3.select("body").select("#col2a").selectAll('#option').property('checked', false); 
+   quantity=q;
+    
+    //return actionscopy;
+}   
+    
+function get_new(act,action){
+    
+    var total =615.0; 
+    var loss=0;
+    var thistotal=0;
+    currentSelection=action;
+    for(var i =0; i<act.children.length; i++){
+        
+     if(act.children[i].name==action){
+         loss = (indis[act.children[i].name]*((quantity*1.0)/1000000));
+         act.children[i].size=act.children[i].size -  loss;
+     }
+        thistotal+=act.children[i].size;
+    }
+    console.log(loss);
+    console.log(1-(loss/total));
+    updateCircle(act,(1-(loss/total)));
+
+    
+    //return actionscopy;
+}
+    
+    
+ 
+    
+    
+
+function drawcircle2(actions,pos){
+    var ratio = 1/3;  
+    //I think this is the frame radius not the circle radius
+    var radius = ((width)/3);   
+
+     var bordercolor='black';
+    var border=5;
+    	
+    
+
+    var svgcontainer2 = d3.select("body").select("#col2a").append("svg")
+
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom+radius).call(responsivefy)
+    .append("g");
+ 
+    
+    
+
+    var thiswidth = svgcontainer2[0][0].getBoundingClientRect().left+width; 
+    var thisheight = radius-svgcontainer2[0][0].getBoundingClientRect().top;
+    
+        console.log(thiswidth);
+      console.log(thisheight);
+    
+     svgcontainer2.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
+
+    var radius = (thiswidth);
+
+    //var radius = 100;
+    var center_x = svgcontainer2[0][0].getBoundingClientRect().left+3*radius; 
+    var center_y = svgcontainer2[0][0].getBoundingClientRect().top+3*radius;
+    
+  
+    
+    var path = svgcontainer2.datum(act).selectAll("path")
+    .data(partition.nodes)
+    .enter()
+  //.attr("class",c);
+    
+    .append("g")
+    .append("path")
+    .attr("display", function(d) { return d.depth ? null : "none"; })
+    .attr("d", get_arc2(1))
+    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name]; })        .append("svg:title")
+   .text(function(d) { return d.name; });;
+    
+ 
+
+    console.log(d3.selectAll("path").attr("d"));
+    
+    
+    //change this binding here
+    
+    //make sure that the radius is appropriately dynamic
+    var borderPath = svgcontainer2.append("circle")
+       			.attr("cx", 0)
+       			.attr("cy", 0)
+                 .attr("r",112.5)
+       			.attr("height",12)
+                .attr("width",20)
+       			.style("stroke", bordercolor)
+       			.style("fill", "none")
+       			.style("stroke-width", border);  
+    
+}
+    
+
+ function drawcircle3(actions,pos){
+    var ratio = 1/3 ;  
+    //I think this is the frame radius not the circle radius
+    var radius = ((width)/3);   
+     var bordercolor='black';
+    var border=5;
+    	
+    
+    var svgcontainer2 = d3.select("body").select("#col2b").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height+radius+10 + margin.top+radius + margin.bottom+radius).call(responsivefy)
+    .append("g");
+ 
+    console.log();
+    
+    var thiswidth = svgcontainer2[0][0].getBoundingClientRect().left+width; 
+    var thisheight = radius+10-svgcontainer2[0][0].getBoundingClientRect().top+(radius/2);
+    
+    console.log(thiswidth);
+      console.log(thisheight);
+    
+     svgcontainer2.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
+
+    var radius = ((thiswidth)/2)+300;
+    //var radius = 100;
+    var center_x = svgcontainer2[0][0].getBoundingClientRect().left+3*radius; 
+    var center_y = radius - svgcontainer2[0][0].getBoundingClientRect().top+3*radius;
+    
+  
+    
+    var path = svgcontainer2.datum(act).selectAll("path")
+    .data(partition.nodes)
+    .enter()
+  //.attr("class",c);
+    
+    .append("g")
+    .append("path")
+    .attr("display", function(d) { return d.depth ? null : "none"; })
+    .attr("d", get_arc2(1))
+    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name]; })        .append("svg:title")
+   .text(function(d) { return d.name; });;
+    
+ 
+
+    console.log(d3.selectAll("path").attr("d"));
+    
+    
+    //change this binding here
+    
+    //make sure that the radius is appropriately dynamic
+    var borderPath = svgcontainer2.append("circle")
+       			.attr("cx", 0)
+       			.attr("cy", 0)
+                 .attr("r",112.5)
+       			.attr("height",12)
+                .attr("width",20)
+       			.style("stroke", bordercolor)
+       			.style("fill", "none")
+       			.style("stroke-width", border);  
+    
+}
+    
+    
+function updateCircle(newData,k){
+    var ratio = 1/3;  
+    var radius = (width)/3;   
+    var bordercolor='black';
+
+    var border=5;
+    	
+    console.log(k);
+  
+    
+    
+
+        d3.select("body").select("#col2a").selectAll("svg").remove();
+
+    
+
+    
+   
+    	
+    
+
+    var svgcontainer2 = d3.select("body").select("#col2a").append("svg")
+
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom+radius).call(responsivefy)
+    .append("g");
+ 
+    
+    
+
+    var thiswidth = svgcontainer2[0][0].getBoundingClientRect().left+width; 
+
+    var thisheight = radius-svgcontainer2[0][0].getBoundingClientRect().top;
+    
+    
+    
+     svgcontainer2.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
+
+    var radius = (thiswidth);
+    var center_x = svgcontainer2[0][0].getBoundingClientRect().left+3*radius; 
+    var center_y = svgcontainer2[0][0].getBoundingClientRect().top+3*radius;
+    
+  
+    
+    var path = svgcontainer2.datum(newData).selectAll("path")
+    .data(partition.nodes)
+    .enter()
+  //.attr("class",c);
+    
+    .append("g")
+    .append("path")
+    .attr("display", function(d) { return d.depth ? null : "none"; })
+    .attr("d", get_arc2(k))
+    .style("fill", function(d) {return actionsColors[d.name]; });
+    
+ 
+
+    console.log(d3.selectAll("arc"));
+    
+    var borderPath = svgcontainer2.append("circle")
+       			.attr("cx", 0)
+       			.attr("cy", 0)
+                 .attr("r",112.5)
+       			.attr("height",12)
+                .attr("width",20)
+       			.style("stroke", bordercolor)
+       			.style("fill", "none")
+       			.style("stroke-width", border); 
+    
+}
+    
+    
+    
+   function getAngle(d,k) {
+    // Offset the angle by 90 deg since the '0' degree axis for arc is Y axis, while
+    // for text it is the X axis.
+    var arc=arc1; 
+       
+    if(k==2){
+     arc=arc2;   
+    }
+       
+    var thetaDeg = (180 / Math.PI * (arc.startAngle()(d) + arc.endAngle()(d)) / 2 - 180);
+    // If we are rotating the text by more than 90 deg, then "flip" it.
+    // This is why "text-anchor", "middle" is important, otherwise, this "flip" would
+    // a little harder.
+    return (thetaDeg > 180) ? thetaDeg - 90 : thetaDeg;
+} 
+    
+
+
+    
+    
+    //wonderful circle code
+   /* var radius = (width/3)/2;
+    var center_x = svgcontainer1[0][0].getBoundingClientRect().left+3*radius; 
+    var center_y = svgcontainer1[0][0].getBoundingClientRect().top+3*radius;    
+
+    console.log(svgcontainer1[0][0].getBoundingClientRect());
+    
+    console.log(center_x + " " + center_y + " " + radius);
+    
+    svgcontainer1
+    .append("circle")
+    .attr("cx", center_x)
+    .attr("cy", center_y)
+    .attr("r", radius)
+    .style("fill", function (d) { return "green"; });*/
+    
+    
+
+
+   
+/*var svgcontainer2 = d3.select("body").select("#col2").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .call(responsivefy);
+    
+ console.log(svgcontainer2[0][0].getBoundingClientRect());
+ 
+    var svgcontainer3 = d3.select("body").select("#col3").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .call(responsivefy);
+    
+    console.log(svgcontainer3[0][0].getBoundingClientRect());*/
+
+
+    
+/*svgcontainer1
+    .append("circle")
+    .attr("cx", center_x)
+    .attr("cy", center_y)
+    .attr("r", radius)
+    .style("fill", function (d) { return "green"; });*/
+
+/*var circles2 = svgcontainer2.selectAll("circle")
+.data(jsonCircles)
+.enter()
+.append("circle");
+    
+    
+var circleAttributes2 = circles2
+    .attr("cx", function (d) { return d.cx; })
+    .attr("cy", function (d) { return d.cy; })
+    .attr("r", function (d) { return d.radius; })
+    .style("fill", function (d) { return d.color; });
+    
+var circles3 = svgcontainer3.selectAll("circle")
+.data(jsonCircles)
+.enter()
+.append("circle");
+    
+    
+var circleAttributes3 = circles3
+    .attr("cx", function (d) { return d.cx; })
+    .attr("cy", function (d) { return d.cy; })
+    .attr("r", function (d) { return d.radius; })
+    .style("fill", function (d) { return d.color; });
+    
+};*/
+    
+   //d3.select(self.frameElement).style("height", height + "px");
+  
+    
+    </script>
+</body>
+
