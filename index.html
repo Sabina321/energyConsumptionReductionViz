@@ -419,8 +419,8 @@ var partition = d3.layout.partition()
     .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, 6*x(d.x + d.dx))); })
 
    //6*y(d.y)
-    .innerRadius(function(d) { return Math.max(0,y(d.y) ); })
-
+    .innerRadius(function(d) { return Math.max(00,y(d.y) ); })
+//6*y(d.y + d.dy)
     .outerRadius(function(d) { return Math.max(0, 6*y(d.y + d.dy)); });     
 
 function get_arc2(factor){
@@ -721,23 +721,18 @@ var tttext = {
     
      
 var colorsnew = {
- "Residential":use_colors[3],
- "Industrial":use_colors[4],
- "Commercial":use_colors[5],
- "Transportation":use_colors[6],
-    
-    
-  "Coal":source_colors[3],    
-  "Petroleum":source_colors[4],  
-  "Natural Gas":source_colors[5]
-    
+"Residential":"#8dd3c7",
+ "Industrial":"#fccde5",
+ "Commercial":"#ffff99",
+ "Transportation":"#cab2d6",
+  "Coal":"#fb8072",    
+  "Petroleum":"#80b1d3",  
+  "Natural Gas":"#fdb462"
 }
 
-var colorsone = d3.scale.ordinal()
-  .range([source_colors[4],source_colors[3],source_colors[5]]);   
+var colorsone = ["#fb8072","#80b1d3","#fdb462"];   
     
-var colorstwo = d3.scale.ordinal()
-  .range([use_colors[6],use_colors[4],use_colors[5],use_colors[3]]);      
+//var colorstwo = d3.scale.ordinal() .range(["#8dd3c7","#fccde5","#ffff99","#cab2d6"]);      
     
     
 var svgcontainer1 = d3.select("body").select("#col1").select("#col1b").append("svg")
@@ -846,7 +841,7 @@ var uNames2 = ["Transportation", "Residential", "Commercial", "Industrial"];
     
  
     
- colorsone.domain(uNames1);
+ //colorsone.domain(uNames1);
 //console.log(colors.domain());   
   var li = {
     w:120, h: 100, s: 10, r: 3
@@ -860,11 +855,11 @@ svgcontainer1.append("text").style("font-size","40px")
       .attr("x",-radius)
       .attr("y",radius+10)
       .attr("class","legendone")
-      .attr("width",  colorsone.domain().length * (li.w + li.s))
-      .attr("height", colorsone.domain().length * (li.h + li.s));
+      .attr("width",  3 * (li.w + li.s))
+      .attr("height", 3 * (li.h + li.s));
 
   var g = legend.selectAll("g")
-      .data(colorsone.domain())
+      .data(uNames1)
       .enter().append("svg:g")
       .attr("transform", function(d, i) {
               return "translate(" + i * (li.w + li.s) + ",0)";
@@ -875,7 +870,7 @@ svgcontainer1.append("text").style("font-size","40px")
       .attr("ry", li.s)
       .attr("width", li.w)
       .attr("height", li.h)
-      .style("fill", function(d) { return colorsone(d); });
+      .style("fill", function(d) {console.log(d.name); return colorsnew[d]; });
 
   g.append("svg:text")
       .attr("x", li.w / 2)
@@ -892,7 +887,7 @@ svgcontainer1.append("text").style("font-size","40px")
 .attr("y",radius+170)
 .text("Sectors");    
     
- colorstwo.domain(uNames2);
+ //colorstwo.domain(uNames2);
  var li = {
     w:200, h: 120, s: 10, r: 3
   };
@@ -901,11 +896,11 @@ svgcontainer1.append("text").style("font-size","40px")
       .attr("x",-radius)
       .attr("y",radius+5)
       
-      .attr("width",  colorstwo.domain().length * (li.w + li.s))
-      .attr("height", colorstwo.domain().length * (li.h + li.s));
+      .attr("width",  4 * (li.w + li.s))
+      .attr("height", 4 * (li.h + li.s));
 
   var g = legend.selectAll("g")
-      .data(colorstwo.domain())
+      .data(uNames2)
       .enter().append("svg:g")
       .attr("transform", function(d, i) {
               return "translate(" + i * (li.w + li.s) + ",170)";
@@ -916,7 +911,7 @@ svgcontainer1.append("text").style("font-size","40px")
       .attr("ry", li.s)
       .attr("width", li.w)
       .attr("height", li.h)
-      .style("fill", function(d) { return colorstwo(d); });
+      .style("fill", function(d) { return colorsnew[d]; });
 
   g.append("svg:text")
       .attr("x", li.w / 2)
