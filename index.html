@@ -430,7 +430,7 @@ function get_arc2(factor){
     .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, 3*x(d.x + d.dx))); })
    //factor*y(d.y)
     .innerRadius(function(d) { return Math.max(0, 0); })
-    .outerRadius(function(d) {console.log(factor*Math.max(0, 2*y(d.y + d.dy))); return Math.max(0, factor*2*y(d.y + d.dy)); });  
+    .outerRadius(function(d) {console.log(factor*Math.max(0, y(d.y + d.dy))); return Math.max(0, factor*y(d.y + d.dy)); });  
 //.outerRadius(function(d) {console.log(factor*Math.max(0, 2*y(d.y + d.dy))); return factor*Math.max(0, 2*y(d.y + d.dy)); });
 
     
@@ -742,10 +742,11 @@ var svgcontainer1 = d3.select("body").select("#col1").select("#col1b").append("s
  
     
  var thiswidth = svgcontainer1[0][0].getBoundingClientRect().left+3*radius; 
-    var thisheight = svgcontainer1[0][0].getBoundingClientRect().top+radius;
+ var thisheight = svgcontainer1[0][0].getBoundingClientRect().top+radius;
     
-     svgcontainer1.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
+ svgcontainer1.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy);
 
+    
     /*var radius = (width/3)/2;
     var center_x = svgcontainer1[0][0].getBoundingClientRect().left+3*radius; 
     var center_y = svgcontainer1[0][0].getBoundingClientRect().top+3*radius;*/
@@ -788,6 +789,8 @@ var sz;
  
  .text(emissionsText(d,sz));   
  }  
+     
+  
  svgcontainer1.append("text")
  .attr("x",-radius)
  .attr("y",-radius)
@@ -971,7 +974,7 @@ function drawcircle2(actions,pos){
     //I think this is the frame radius not the circle radius
     var radius = ((width)/3);   
 
-     var bordercolor='black';
+     var bordercolor='white';
     var border=5;
     	
     
@@ -1010,7 +1013,7 @@ function drawcircle2(actions,pos){
     .append("path")
     .attr("display", function(d) { return d.depth ? null : "none"; })
     .attr("d", get_arc2(1))
-    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name]; })        .append("svg:title")
+    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name];}).append("svg:title")
    .text(function(d) { return d.name; });;
     
  
@@ -1024,7 +1027,7 @@ function drawcircle2(actions,pos){
     var borderPath = svgcontainer2.append("circle")
        			.attr("cx", 0)
        			.attr("cy", 0)
-                 .attr("r",112.5)
+                 .attr("r",60)
        			.attr("height",12)
                 .attr("width",20)
        			.style("stroke", bordercolor)
@@ -1038,7 +1041,7 @@ function drawcircle2(actions,pos){
     var ratio = 1/3 ;  
     //I think this is the frame radius not the circle radius
     var radius = ((width)/3);   
-     var bordercolor='black';
+     var bordercolor='white';
     var border=5;
     	
     
@@ -1084,7 +1087,7 @@ function drawcircle2(actions,pos){
     //change this binding here
     
     //make sure that the radius is appropriately dynamic
-    var borderPath = svgcontainer2.append("circle")
+var borderPath = svgcontainer2.append("circle")
        			.attr("cx", 0)
        			.attr("cy", 0)
                  .attr("r",112.5)
@@ -1100,7 +1103,7 @@ function drawcircle2(actions,pos){
 function updateCircle(newData,k){
     var ratio = 1/3;  
     var radius = (width)/3;   
-    var bordercolor='black';
+    var bordercolor='white';
 
     var border=5;
     	
