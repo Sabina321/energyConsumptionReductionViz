@@ -62,27 +62,27 @@
     #col2a {
     float:left;
     width:100%;
-    height:20%;
+    height:10%;
         
        
 }
  #col2b {
     float:left;
     width:100%;
-    height:80%;
+    height:90%;
        
        
 }   
   #col2top {
     float:left;
-    width:100%;
+    width:50%;
    height:50%;
       
        
 } 
          #col2bottom {
     float:left;
-    width:100%;
+    width:50%;
    height:50%;
       
        
@@ -93,15 +93,15 @@
  #col2bottombright {
     float:left;
     width:50%;
-   height:100%;
+   height:50%;
       
        
 }   
         
 #col2bottomleft {
     float:left;
-    width:50%;
-    height:100%;
+    width:100%;
+    height:50%;
         
        
 }
@@ -109,15 +109,15 @@
  #col2topbright {
     float:left;
     width:50%;
-   height:100%;
+   height:50%;
       
        
 }   
         
 #col2topleft {
     float:left;
-    width:50%;
-    height:100%;
+    width:100%;
+    height:50%;
         
        
 }
@@ -677,6 +677,9 @@ drawcircle1(flare);
 //fixedColors(actions); 
 fixedRing(actions); 
 fixedRingTwo(actions);
+    
+fixedRingThree(actions); 
+fixedRingFour(actions);
 //dynamicColors(actions); 
 //fixedRing(actions); 
 
@@ -1043,7 +1046,7 @@ function dynamicColors(actions){
     var vshift = (radius/2);	
     
 
-    var svgcontainer2 = d3.select("body").select("#col2b").append("svg")
+    var svgcontainer2 = d3.select("body").select("#col2bottomright").append("svg")
 
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom+radius).call(responsivefy)
@@ -1107,11 +1110,11 @@ function dynamicColors(actions){
     var radius = ((width)/3);   
      var bordercolor='white';
     var border=5;
-    var hshift =1.5*width; 
+    var hshift =width/9; 
     var vshift =width/2; 
     
          
-    var svgcontainer2 = d3.select("body").select("#col2right").append("svg")
+    var svgcontainer2 = d3.select("body").select("#col2topright").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height+radius+10 + margin.top+radius + margin.bottom+radius).call(responsivefy)
     .append("g");
@@ -1165,83 +1168,19 @@ var borderPath = svgcontainer2.append("circle")
     
 }
     
-    
-function dynamicRing(actions,pos){
-    var ratio = 1/3;  
-    //I think this is the frame radius not the circle radius
-    var radius = ((width)/3);   
 
-     var bordercolor='white';
-    var border=5;
-    	
-    
-
-    var svgcontainer2 = d3.select("body").select("#col2a").append("svg")
-
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom+radius).call(responsivefy)
-    .append("g");
- 
-    
-    
-
-    var thiswidth = svgcontainer2[0][0].getBoundingClientRect().left+1.5*width; 
-    var thisheight = radius-svgcontainer2[0][0].getBoundingClientRect().top;
-    
-        console.log(thiswidth);
-      console.log(thisheight);
-    
-     svgcontainer2.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
-
-    var radius = (thiswidth);
-
-    //var radius = 100;
-    var center_x = svgcontainer2[0][0].getBoundingClientRect().left+3*radius; 
-    var center_y = svgcontainer2[0][0].getBoundingClientRect().top+3*radius;
-    
-  
-    
-    var path = svgcontainer2.datum(act).selectAll("path")
-    .data(partition.nodes)
-    .enter()
-  //.attr("class",c);
-    
-    .append("g")
-    .append("path")
-    .attr("display", function(d) { return d.depth ? null : "none"; })
-    .attr("d", get_arc2(1))
-    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name];}).append("svg:title")
-   .text(function(d) { return d.name; });;
-    
- 
-
-    console.log(d3.selectAll("path").attr("d"));
-    
-    
-    //change this binding here
-    
-    //make sure that the radius is appropriately dynamic
-    var borderPath = svgcontainer2.append("circle")
-       			.attr("cx", 0)
-       			.attr("cy", 0)
-                 .attr("r",60)
-       			.attr("height",12)
-                .attr("width",20)
-       			.style("stroke", bordercolor)
-       			.style("fill", "none")
-       			.style("stroke-width", border);  
-    
-}
     
 
  function fixedRing(actions){
-    var ratio = 1/3 ;  
+    //topleft
+     
+     var ratio = 1/3 ;  
     //I think this is the frame radius not the circle radius
-    var radius = ((width)/3);   
-     var bordercolor='red';
+    var radius = (width);   
+     var bordercolor='black';
     var border=5;
-    var hshift =-width/9; 
-    var vshift =width/2; 
+    var hshift =width; 
+    var vshift =width*.75; 
      
     
          
@@ -1260,7 +1199,7 @@ function dynamicRing(actions,pos){
     
      svgcontainer2.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
 
-    var radius = ((thiswidth)/2)+100;
+    var radius = ((thiswidth)/2)+300;
     //var radius = 100;
     var center_x = svgcontainer2[0][0].getBoundingClientRect().left+3*radius; 
     var center_y = radius - svgcontainer2[0][0].getBoundingClientRect().top+3*radius;
@@ -1290,7 +1229,7 @@ function dynamicRing(actions,pos){
 var borderPath = svgcontainer2.append("circle")
        			.attr("cx", 0)
        			.attr("cy", 0)
-                 .attr("r",60.5)
+                 .attr("r",150.5)
        			.attr("height",12)
                 .attr("width",20)
        			.style("stroke", bordercolor)
@@ -1300,13 +1239,86 @@ var borderPath = svgcontainer2.append("circle")
 }    
     
  function fixedRingTwo(actions){
+     //topright
+     
+     
     var ratio = 1/3 ;  
     //I think this is the frame radius not the circle radius
-    var radius = ((width)/3);   
-     var bordercolor='red';
+    var radius = ((width));   
+     var bordercolor='black';
     var border=5;
-    var hshift =-width/9; 
-    var vshift =width/2; 
+    var hshift =width; 
+    var vshift =.75*width; 
+     
+    
+         
+    var svgcontainer2 = d3.select("body").select("#col2bottomleft").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height+radius+10 + margin.top+radius + margin.bottom+radius).call(responsivefy)
+    .append("g");
+ 
+    console.log("fixed ring");
+    
+    var thiswidth = svgcontainer2[0][0].getBoundingClientRect().left+hshift; 
+    var thisheight = svgcontainer2[0][0].getBoundingClientRect().top+vshift;
+    
+    console.log(thiswidth);
+      console.log(thisheight);
+    
+     svgcontainer2.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
+
+    var radius = ((thiswidth)/2)+300;
+    //var radius = 100;
+    var center_x = svgcontainer2[0][0].getBoundingClientRect().left+3*radius; 
+    var center_y = radius - svgcontainer2[0][0].getBoundingClientRect().top+3*radius;
+    
+  
+    
+    var path = svgcontainer2.datum(act).selectAll("path")
+    .data(partition.nodes)
+    .enter()
+  //.attr("class",c);
+    
+    .append("g")
+    .append("path")
+    .attr("display", function(d) { return d.depth ? null : "none"; })
+    .attr("d", get_arc2(1))
+    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name]; })        .append("svg:title")
+   .text(function(d) { return d.name; });;
+    
+ 
+
+    console.log(d3.selectAll("path").attr("d"));
+    
+    
+    //change this binding here
+    
+    //make sure that the radius is appropriately dynamic
+var borderPath = svgcontainer2.append("circle")
+       			.attr("cx", 0)
+       			.attr("cy", 0)
+                 .attr("r",150.5)
+       			.attr("height",12)
+                .attr("width",20)
+       			.style("stroke", bordercolor)
+       			.style("fill", "none")
+       			.style("stroke-width", border);  
+    
+}    
+       
+    
+ 
+ function fixedRingThree(actions){
+     
+     //bottom left
+     
+    var ratio = 1/3 ;  
+    //I think this is the frame radius not the circle radius
+    var radius = ((width));   
+     var bordercolor='black';
+    var border=5;
+    var hshift =width; 
+    var vshift =.7*width; 
      
     
          
@@ -1317,17 +1329,15 @@ var borderPath = svgcontainer2.append("circle")
  
     console.log("fixed ring");
     
-    var thiswidth = 0;
-        //svgcontainer2[0][0].getBoundingClientRect().left+hshift; 
-    var thisheight = 0;
-        //svgcontainer2[0][0].getBoundingClientRect().top+vshift;
+    var thiswidth = svgcontainer2[0][0].getBoundingClientRect().left+hshift; 
+    var thisheight = svgcontainer2[0][0].getBoundingClientRect().top+vshift;
     
     console.log(thiswidth);
       console.log(thisheight);
     
      svgcontainer2.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
 
-    var radius = ((thiswidth)/2)+100;
+    var radius = ((thiswidth)/2)+300;
     //var radius = 100;
     var center_x = svgcontainer2[0][0].getBoundingClientRect().left+3*radius; 
     var center_y = radius - svgcontainer2[0][0].getBoundingClientRect().top+3*radius;
@@ -1357,7 +1367,7 @@ var borderPath = svgcontainer2.append("circle")
 var borderPath = svgcontainer2.append("circle")
        			.attr("cx", 0)
        			.attr("cy", 0)
-                 .attr("r",60.5)
+                 .attr("r",150.5)
        			.attr("height",12)
                 .attr("width",20)
        			.style("stroke", bordercolor)
@@ -1365,9 +1375,75 @@ var borderPath = svgcontainer2.append("circle")
        			.style("stroke-width", border);  
     
 }    
-       
     
     
+    
+ function fixedRingFour(actions){
+     //bottomright
+     
+    var ratio = 1/3 ;  
+    //I think this is the frame radius not the circle radius
+    var radius = ((width));   
+     var bordercolor='black';
+    var border=5;
+    var hshift =width; 
+    var vshift =.7*width; 
+     
+    
+         
+    var svgcontainer2 = d3.select("body").select("#col2bottomright").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height+radius+10 + margin.top+radius + margin.bottom+radius).call(responsivefy)
+    .append("g");
+ 
+    console.log("fixed ring");
+    
+    var thiswidth = svgcontainer2[0][0].getBoundingClientRect().left+hshift; 
+    var thisheight = svgcontainer2[0][0].getBoundingClientRect().top+vshift;
+    
+    console.log(thiswidth);
+      console.log(thisheight);
+    
+     svgcontainer2.attr("transform", "translate(" + (ratio*thiswidth) + "," + ((ratio*thisheight)  + thisheight) + ")").call(responsivefy) ;
+
+    var radius = ((thiswidth)/2)+300;
+    //var radius = 100;
+    var center_x = svgcontainer2[0][0].getBoundingClientRect().left+3*radius; 
+    var center_y = radius - svgcontainer2[0][0].getBoundingClientRect().top+3*radius;
+    
+  
+    
+    var path = svgcontainer2.datum(act).selectAll("path")
+    .data(partition.nodes)
+    .enter()
+  //.attr("class",c);
+    
+    .append("g")
+    .append("path")
+    .attr("display", function(d) { return d.depth ? null : "none"; })
+    .attr("d", get_arc2(1))
+    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name]; })        .append("svg:title")
+   .text(function(d) { return d.name; });;
+    
+ 
+
+    console.log(d3.selectAll("path").attr("d"));
+    
+    
+    //change this binding here
+    
+    //make sure that the radius is appropriately dynamic
+var borderPath = svgcontainer2.append("circle")
+       			.attr("cx", 0)
+       			.attr("cy", 0)
+                 .attr("r",150.5)
+       			.attr("height",12)
+                .attr("width",20)
+       			.style("stroke", bordercolor)
+       			.style("fill", "none")
+       			.style("stroke-width", border);  
+    
+}    
     
     
     
