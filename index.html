@@ -1021,7 +1021,7 @@ function get_new(act,action){
     for(var i =0; i<act.children.length; i++){
         
      if(act.children[i].name==action){
-         loss = (indis[act.children[i].name]*((quantity*1.0)));
+         loss = (indis[act.children[i].name]);
          act.children[i].size=act.children[i].size -  loss;
          console.log(loss);
          console.log(quantity);
