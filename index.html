@@ -552,8 +552,9 @@ console.log(totalColors);
 
     
     
-    
+    var fixedRadius = 111.5;
 function init(){
+    fixedRadius = 111.5;
 console.log("init");
  var act = {
  "name": "Savings",
@@ -626,6 +627,7 @@ console.log("init");
 ]
 };
     updatePie(act,1);
+    
     updateRing(act,1);
     
 }
@@ -1134,7 +1136,7 @@ var borderPath = svgcontainer2.append("circle")
     .append("path")
     .attr("display", function(d) { return d.depth ? null : "none"; })
     .attr("d", get_arc2(1))
-    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name]; })        .append("svg:title")
+    .style("fill", function(d) {console.log(d.name); return actionsColors[d.name]; }).append("svg:title")
    .text(function(d) { return d.name; });;
     
  
@@ -1293,6 +1295,7 @@ var borderPath = svgcontainer2.append("circle")
     
 }    
   
+     
     
     //should rename things
 function updatePie(newData,k){
@@ -1306,13 +1309,6 @@ function updatePie(newData,k){
     
 
         d3.select("body").select("#col2bottomleft").selectAll("svg").remove();
-
-    
-
-    
-   
-    	
-    
 
     var svgcontainer2 =  d3.select("body").select("#col2bottomleft").append("svg")
 
@@ -1364,6 +1360,7 @@ function updatePie(newData,k){
     
     
 function updateRing(newData,k){
+    fixedRadius=fixedRadius*k;
     console.log("update ring");
     var ratio = 1/3;  
     var radius = (width)/3;   
@@ -1405,7 +1402,7 @@ function updateRing(newData,k){
 var borderPath = svgcontainer2.append("circle")
        			.attr("cx", 0)
        			.attr("cy", 0)
-                 .attr("r",111.5*k)
+                .attr("r",fixedRadius)
        			.attr("height",12)
                 .attr("width",20)
        			.style("stroke", bordercolor)
