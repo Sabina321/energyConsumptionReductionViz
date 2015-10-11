@@ -173,7 +173,7 @@ div.tooltip {
   height: 120px;                 
   padding: 2px;             
   font: 12px sans-serif;        
-  background: lightsteelblue;   
+    
   border: 0px;      
   border-radius: 8px;           
   pointer-events: none;         
@@ -307,7 +307,7 @@ console.log(source_colors);
 
     
 
-
+/*
 var act = {
  "name": "Savings",
     
@@ -373,7 +373,7 @@ var act = {
     }  
     ]
 };  
-
+*/
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 960 - margin.top - margin.bottom;
@@ -507,29 +507,8 @@ function get_arc2(factor){
 }
   
 
-/* 
 
-Not really using this anymore
-=======
-    
->>>>>>> f9de664a076f53a316fad836830afca7fe9cc389
-var green = colorbrewer.Greens[9];   
- var blue = colorbrewer.Blues[9];
- var purp = colorbrewer.Purples[9];  
-    
-    
- var totalColors = [];
-    
- for( i=3; i<8;i++){
-   totalColors.push(green[i]);  
-    totalColors.push(blue[i]); 
-    totalColors.push(purp[i]); 
- };
-totalColors.push(purp[8]);
-totalColors.push(green[8]);
-console.log(totalColors);   
-<<<<<<< HEAD
- */   
+  
  var actionsColors = {"Maintain correct tire pressure":"#dadaeb",
     "Clothes washing":"#c6dbef",
     "Buy low rolling tires":"#c7e9c0",
@@ -553,10 +532,8 @@ console.log(totalColors);
     
     
     var fixedRadius = 111.5;
-function init(){
-    fixedRadius = 111.5;
-console.log("init");
- var act = {
+    
+     var actFinal = {
  "name": "Savings",
     
    "children": [
@@ -624,48 +601,109 @@ console.log("init");
         {
      "name": "Buy a more fuel efficient vehicle", "size":83.05605
     }
-]
-};
+   ]};
+    
+    
+function cloneObject(obj) {
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
+    }
+ 
+    var temp = obj.constructor(); // give temp the original obj's constructor
+    for (var key in obj) {
+        temp[key] = cloneObject(obj[key]);
+    }
+ 
+    return temp;
+}    
+    
+function init(){
+    fixedRadius = 111.5;
+    console.log("init");
+    
+       
+    
+   var actFinalHere = {
+ "name": "Savings",
+    
+   "children": [
+     {
+     "name": "Maintain correct tire pressure", "size":7.38276
+    },
+       
+     {
+     "name": "Clothes washing","size":7.38276
+    },
+       
+       
+     {
+     "name": "Buy low rolling tires","size":9.22845
+    },
+       
+      {
+     "name": "Upgrade water heater","size":9.22845
+    },
+        {
+     "name": "Upgrade refrigerator","size":11.68937
+    },
+       
+     {
+     "name": "Upgrade AC","size":13.53506
+    },
+     {
+     "name": "Cut highway speed","size":14.76552
+    },
+      {
+     "name": "Weather-strip","size":15.38075
+    }, 
+       
+     {
+     "name": "Combine trips","size":16.61121
+    },   
+     {
+     "name": "Upgrade heater","size":17.84167
+    },   
+       
+    {
+     "name": "Alter-driving", "size":19.68736
+    },   
+      
+        {
+     "name": "Set thermostat","size":20.91782
+    },
+      
+       {
+     "name": "Tune-ups","size":23.99397
+    },
+       
+     {
+     "name": "Lighting", "size":24.6092
+    },
+         
+    {
+     "name": "Carpooling","size":25.83966
+    },
+    
+     {
+     "name": "Upgrade Insulation","size":43.0661
+    },
+        
+        {
+     "name": "Buy a more fuel efficient vehicle", "size":83.05605
+    }
+   ]};
+    
+    var act = cloneObject(actFinalHere);
+    actFinal = actFinalHere;
+    console.log(act);
+
     updatePie(act,1);
     
     updateRing(act,1);
     
 }
     
-/* function drawLegend() {
 
-  // Dimensions of legend item: width, height, spacing, radius of rounded rect.
-  var li = {
-    w: 75, h: 30, s: 3, r: 3
-  };
-
-  var legend = d3.select("#col2").select("#legend").append("svg:svg")
-      .attr("width", li.w)
-      .attr("height", colors.domain().length * (li.h + li.s));
-
-  var g = legend.selectAll("g")
-      .data(colors.domain())
-      .enter().append("svg:g")
-      .attr("transform", function(d, i) {
-              return "translate(0," + i * (li.h + li.s) + ")";
-           });
-
-  g.append("svg:rect")
-      .attr("rx", li.r)
-      .attr("ry", li.r)
-      .attr("width", li.w)
-      .attr("height", li.h)
-      .style("fill", function(d) { return colors(d); });
-
-  g.append("svg:text")
-      .attr("x", li.w / 2)
-      .attr("y", li.h / 2)
-      .attr("dy", "0.35em")
-      .attr("text-anchor", "middle")
-      .text(function(d) { return d; });
-}*/
-  
-   
     
    
     
@@ -673,7 +711,7 @@ function analyze(error, flare, actions,tab,sizes,individuals){
     if(error) { console.log(error); }
  indis = individuals;
     
-
+ ;
 
 
 drawcircle1(flare);
@@ -684,27 +722,8 @@ fixedRingTwo(actions);
     
 fixedRingThree(actions); 
 fixedRingFour(actions);
-//dynamicColors(actions); 
-//fixedRing(actions); 
 
 
-
-
-/*.attr("transform", function(d) { console.log(computeTextRotation(d)); return "rotate(" + computeTextRotation(d) + ")"; })
-                        .attr("x", function(d) { return y(d.y); })
-                        .attr("dx", "50") 
-                        .attr("y", function(d) { return d.y+d.dy*30; }) 
-                        .text(function(d) {console.log(d); return d.name; });*/
- /*    
-  path.append("text")
-    .attr("transform", function(d) { console.log(computeTextRotation(d)); return "rotate(" + computeTextRotation(d) + ")"; })
-    .attr("x", function(d) { return y(d.y); })
-    .attr("dx", "5") // margin
-    .attr("dy", ".35em") // vertical-align
-    .text(function(d) { return d.name; }).call(responsivefy);
-    console.log(path);*/
-
-//.call(responsivefy);
     
 
     
@@ -713,7 +732,8 @@ fixedRingFour(actions);
  
 var div = svgcontainer3.append("div")   
     .attr("class", "tooltip")               
-    .style("opacity", 0);    
+    ;
+ 
     
  var thiswidth = svgcontainer3[0][0].getBoundingClientRect().left+3*radius; 
     var thisheight = svgcontainer3[0][0].getBoundingClientRect().top+radius;   
@@ -738,7 +758,8 @@ var div = svgcontainer3.append("div")
       
      div.transition()        
                 .duration(200)      
-                .style("opacity", .9);      
+                .style("opacity", .9)
+               .style("background",function(d){return   actionsColors[d.split(",")[0]]});      
             div.html(tttext[d] + "<br/>"  )  
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");
@@ -752,7 +773,7 @@ div.transition()
                 .style("opacity", 0);
           
 d3.select(this).style("background-color", function(d){console.log(d.split(",")[0]);return   actionsColors[d.split(",")[0]]})}) 
-    .on("click",function(d){console.log(d);get_new(act,d)})
+    .on("click",function(d){console.log(d);get_new(actFinal,d)})
     .text(function(d){return d.split(",");})
     .style("font-size", "12px");
     
@@ -1017,7 +1038,8 @@ function get_new_quantity(q){
 }   
     
 function get_new(act,action){
-    
+    console.log("get new");
+    console.log(act);
     var total =615.0; 
     var loss=0;
     var thistotal=0;
@@ -1127,7 +1149,7 @@ var borderPath = svgcontainer2.append("circle")
     
   
     
-    var path = svgcontainer2.datum(act).selectAll("path")
+    var path = svgcontainer2.datum(actFinal).selectAll("path")
     .data(partition.nodes)
     .enter()
   //.attr("class",c);
@@ -1266,7 +1288,7 @@ var borderPath = svgcontainer2.append("circle")
     
   
     
-    var path = svgcontainer2.datum(act).selectAll("path")
+    var path = svgcontainer2.datum(actFinal).selectAll("path")
     .data(partition.nodes)
     .enter()
   //.attr("class",c);
@@ -1402,13 +1424,24 @@ function updateRing(newData,k){
 var borderPath = svgcontainer2.append("circle")
        			.attr("cx", 0)
        			.attr("cy", 0)
-                .attr("r",fixedRadius)
+                .attr("r",115.5)
        			.attr("height",12)
                 .attr("width",20)
        			.style("stroke", bordercolor)
        			.style("fill", "none")
        			.style("stroke-width", border);  
+    
+    var borderPath2 = svgcontainer2.append("circle")
+       			.attr("cx", 0)
+       			.attr("cy", 0)
+                .attr("r",fixedRadius)
+       			.attr("height",12)
+                .attr("width",20)
+       			.style("stroke",'blue')
+       			.style("fill", "none")
+       			.style("stroke-width", border); 
 }
+    
     
     
     
