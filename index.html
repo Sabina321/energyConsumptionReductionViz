@@ -173,7 +173,7 @@ div.tooltip {
   height: 120px;                 
   padding: 2px;             
   font: 12px sans-serif;        
-    
+   color:'blue'; 
   border: 0px;      
   border-radius: 8px;           
   pointer-events: none;         
@@ -731,13 +731,16 @@ fixedRingFour(actions);
   var svgcontainer3 = d3.select("body").select("#col3").call(responsivefy);
  
 var div = svgcontainer3.append("div")   
-    .attr("class", "tooltip")               
+    .attr("class", "tooltip")
+    
     ;
  
     
  var thiswidth = svgcontainer3[0][0].getBoundingClientRect().left+3*radius; 
-    var thisheight = svgcontainer3[0][0].getBoundingClientRect().top+radius;   
-      svgcontainer3.append("table")
+ var thisheight = svgcontainer3[0][0].getBoundingClientRect().top+radius;   
+    
+    //the table
+    svgcontainer3.append("table")
     //.attr("id",c)
     .style("border-collapse", "collapse")
     .style("border", "2px black solid")
@@ -754,19 +757,29 @@ var div = svgcontainer3.append("div")
     .style("background-color",function(d){console.log(d.split(",")[0]);return   actionsColors[d.split(",")[0]]})
     .on("mouseover", function(d){
           
-     //d3.select(this).style("background-color", "aliceblue");
+     
       
      div.transition()        
                 .duration(200)      
                 .style("opacity", .9)
-               .style("background",function(d){return   actionsColors[d.split(",")[0]]});      
-            div.html(tttext[d] + "<br/>"  )  
-                .style("left", (d3.event.pageX) + "px")     
+    // d3.select(this).style("background-color", "aliceblue");
+     //function(e){console.log(e); return   actionsColors[e.split(",")[0]]}
+               .style("background-color",function(){return   actionsColors[d.split(",")[0]]});      
+                div.html(tttext[d] + "<br/>"  )
+                
+                //console.log(this.getBoundingClientRect())
+                //this should be a function
+                //1113 should be the edge of the table
+                
+                .style("left", this.getBoundingClientRect().right + "px", console.log(Math.min(d3.event.pageX+90,1100)))     
                 .style("top", (d3.event.pageY - 28) + "px");
           
       
       
       }) 
+    
+    //var rect = this.getElementById("table").getBoundingClientRect();
+    
     .on("mouseout", function(){
 div.transition()        
                 .duration(100)      
