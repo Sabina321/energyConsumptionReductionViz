@@ -1,0 +1,29 @@
+
+\documentclass{article}
+\usepackage[default]{lato}
+\usepackage[T1]{fontenc}
+
+\usepackage{tikz}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{multicol}
+ \usepackage{vwcol}  
+\usepackage{lipsum}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+\begin{document}
+The emissions figures were obtained from the Energy Information Administration, Monthly Energy Review April 2015 \cite{EIA}. In this report emissions by electricity are a separate sector, that is figures for the multiple sources of electricity: coal, petroleum, and and natural gas, are provided. Yet each sector: Residential, Industrial, Commercial and Transportation uses some electricity. Thus when finding the total emissions of any sector their electricity emissions were added in. So first I found the breakdown of electricity emissions by percent: .77 coal, .01 petroleum, .22 natural gas. Then for any sector I found the amount of electricity consumed(provided by the retail electricity figure). Then that quantity was divided into the source categories using the proportions mentioned previously. For example:      
+     
+The residential sector consumed NA amount of coal in 2014. However they consumed 773 MM CO2 via retail electricity. Thus the total amount of emissions by the residential sector, due to coal, was 773 * .77 or 595 MM CO2.
+     
+The 17 Actions are taken from "The Short List: The Most Effective Actions U.S. Households Can Take to Curb Climate Change"\cite{Environment}. To calculate the total potential emissions reductions from these 17 actions, I first found the potential emissions reductions for each household. This was found by finding the total US emissions in 2005, the year for which the percentages were generated, then multiplying that number by 11%, the figure provided in the paper of the total potential emissions reduction due to household actions. Thus the total potential reductions in 2005 was approximately equal to 615 MM CO2. 
+     
+To find the exact household contribution of each of the 17 actions, each of which are household actions, I had to find the total potential emissions reduction of each household. The number of households in the US in July 2013 was estimated to be 133 million\cite{CensusOne}. Thus the average potential emissions reduction per household is approximately: 4.62 MM CO2. It would be desirable to have the precise reductions in CO2 emissions of each action. However, in the interim, the approximation is believed to be sufficient to show: a) the relative impact of each action, b)the approximate impact that individuals and households can have in lowering carbon dioxide emissions.     
+      
+   
+     
+  \bibliography{references}
+\bibliographystyle{plain}
+     
+     \end{document}
